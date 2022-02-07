@@ -44,7 +44,7 @@ public class Parser {
 
    Type type() throws IOException {
 
-      Type p = (Type)look;            // expect look.tag == Tag.BASIC 
+      Type p = (Type)look;            // expect look.tag == Tag.BASIC
       match(Tag.BASIC);
       if( look.tag != '[' ) return p; // T -> basic
       else return dims(p);            // return array type
@@ -88,6 +88,16 @@ public class Parser {
          whilenode.init(x, s1);
          Stmt.Enclosing = savedStmt;  // reset Stmt.Enclosing
          return whilenode;
+
+//    Added FOR
+      case Tag.FOR:
+         For fornode = new For();
+         savedStmt = Stmt.Enclosing; Stmt.Enclosing = fornode;
+         match(Tag.FOR); match('('); x = bool(); match(')');
+         s1 = stmt();
+         whilenode.init(x, s1);
+         Stmt.Enclosing = savedStmt;  // reset Stmt.Enclosing
+         return fornode;
 
       case Tag.DO:
          Do donode = new Do();
