@@ -16,7 +16,7 @@ public class For extends Stmt {
 		body = null;
 	}
 
-	public void init(Expr initiation, Expr condition, Expr increment,Stmt body) {
+	public void init(Expr initiation, Expr condition, Expr increment, Stmt body) {
 		this.initiation = initiation;
 		this.condition = condition;
 		this.increment = increment;

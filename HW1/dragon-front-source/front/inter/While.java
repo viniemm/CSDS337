@@ -1,7 +1,7 @@
 package inter;
 import symbols.*;
 
-public class Whil extends Stmt {
+public class While extends Stmt {
 
    Expr expr; Stmt stmt;
 
