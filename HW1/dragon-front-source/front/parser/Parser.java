@@ -89,6 +89,8 @@ public class Parser {
 
 	Stmt stmt() throws IOException {
 		Expr x;
+		Expr x1;
+		Expr x2;
 		Stmt s, s1, s2, s3;
 		Stmt savedStmt;         // save enclosing loop for breaks
 
@@ -131,7 +133,6 @@ public class Parser {
 				match('(');
 				s1 = stmt();
 				x = bool();
-				match(';');
 				s2 = stmt();
 				match(')');
 				s3 = stmt();
