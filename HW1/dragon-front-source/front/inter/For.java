@@ -4,9 +4,9 @@ import symbols.*;
 
 public class For extends Stmt {
 
-	Expr initiation;
+	Stmt initiation;
 	Expr condition;
-	Expr increment;
+	Stmt increment;
 	Stmt body;
 
 	public For() {
@@ -16,7 +16,7 @@ public class For extends Stmt {
 		body = null;
 	}
 
-	public void init(Expr initiation, Expr condition, Expr increment, Stmt body) {
+	public void init(Stmt initiation, Expr condition, Stmt increment, Stmt body) {
 		this.initiation = initiation;
 		this.condition = condition;
 		this.increment = increment;
@@ -26,10 +26,11 @@ public class For extends Stmt {
 
 	public void gen(int b, int a) {
 		after = a;                // save label a
-		expr.jumping(0, a);
+		condition.jumping(0, a);
 		int label = newlabel();   // label for stmt
 		emitlabel(label);
-		stmt.gen(label, b);
+		increment.gen(label, b);
+		body.gen(label, b);
 		emit("goto L" + b);
 	}
 }

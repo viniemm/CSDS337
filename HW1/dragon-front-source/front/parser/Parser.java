@@ -89,7 +89,7 @@ public class Parser {
 
 	Stmt stmt() throws IOException {
 		Expr x;
-		Stmt s, s1, s2;
+		Stmt s, s1, s2, s3;
 		Stmt savedStmt;         // save enclosing loop for breaks
 
 		switch (look.tag) {
@@ -129,10 +129,13 @@ public class Parser {
 				Stmt.Enclosing = fornode;
 				match(Tag.FOR);
 				match('(');
-				x = bool();
-				match(')');
 				s1 = stmt();
-				whilenode.init(x, s1);
+				x = bool();
+				match(';');
+				s2 = stmt();
+				match(')');
+				s3 = stmt();
+				fornode.init(s1, x, s2, s3);
 				Stmt.Enclosing = savedStmt;  // reset Stmt.Enclosing
 				return fornode;
 
