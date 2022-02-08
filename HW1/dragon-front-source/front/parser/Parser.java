@@ -131,9 +131,10 @@ public class Parser {
 				Stmt.Enclosing = fornode;
 				match(Tag.FOR);
 				match('(');
-				s1 = stmt();
+				s1 = assign();
 				x = bool();
-				s2 = stmt();
+				match(';');
+				s2 = assign();
 				match(')');
 				s3 = stmt();
 				fornode.init(s1, x, s2, s3);

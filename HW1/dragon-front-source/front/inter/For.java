@@ -29,8 +29,8 @@ public class For extends Stmt {
 		condition.jumping(0, a);
 		int label = newlabel();   // label for stmt
 		emitlabel(label);
-		increment.gen(label, b);
 		body.gen(label, b);
+		increment.gen(label, b);
 		emit("goto L" + b);
 	}
 }
