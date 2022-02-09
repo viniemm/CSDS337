@@ -21,8 +21,10 @@ public class Lexer {
 		reserve(new Word("while", Tag.WHILE));
 		reserve(new Word("do", Tag.DO));
 		reserve(new Word("break", Tag.BREAK));
-//      Adding For
+		// Adding For
 		reserve(new Word("for", Tag.FOR));
+		// Adding div
+		reserve(Word.div);
 
 		reserve(Word.True);
 		reserve(Word.False);
@@ -44,7 +46,7 @@ public class Lexer {
 		return true;
 	}
 
-	public Token scan() throws IOException {
+	public Token  scan() throws IOException {
 		for (; ; readch()) {
 			if (peek == ' ' || peek == '\t') continue;
 			else if (peek == '\n') line = line + 1;

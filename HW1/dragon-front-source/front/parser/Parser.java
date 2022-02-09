@@ -244,8 +244,18 @@ public class Parser {
 	}
 
 	Expr term() throws IOException {
-		Expr x = unary();
+		Expr x = div();
 		while (look.tag == '*' || look.tag == '/') {
+			Token tok = look;
+			move();
+			x = new Arith(tok, x, div());
+		}
+		return x;
+	}
+	// Added div in higher order to *, /
+	Expr div() throws IOException {
+		Expr x = unary();
+		while (look.tag == Tag.DIV) {
 			Token tok = look;
 			move();
 			x = new Arith(tok, x, unary());
