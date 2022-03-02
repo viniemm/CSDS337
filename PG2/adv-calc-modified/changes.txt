@@ -1,0 +1,51 @@
+Problem 1
+
+fb3-2.h
+35:  *  + - * / | ^ mod
+
+fb3-2.l
+31: '^' |   { return yytext[0]; }
+33: "mod"   { return '%';       }
+
+fb3-2.y
+37: %left "mod" '^' '%'
+67: | exp "mod" exp        { $$ = newast('%', $1,$3); }
+68: | exp '^' exp          { $$ = newast('^', $1,$3); }
+
+fb3-2funcs.c
+241: case '%': v = fmod(eval(a->l), eval(a->r)); break;
+242: case '^': v = pow(eval(a->l), eval(a->r)); break;
+404: case '%':
+405: case '^':
+481: case '+': case '-': case '*': case '/': case '%': case '^': case 'L':
+
+
+Problem 2
+
+fb3-2.h
+52: B_sin,
+53: B_cos,
+54: B_tan,
+
+fb3-2.l
+56: "sin"   { yylval.fn = B_sin; return FUNC; }
+57: "cos"   { yylval.fn = B_cos; return FUNC; }
+58: "tan"   { yylval.fn = B_tan; return FUNC; }
+
+fb3-2.y
+
+
+fb3-2funcs.c
+304: case B_sin:
+305:   return sin(v);
+306: case B_cos:
+307:   return cos(v); 
+308: case B_tan:
+309:   return tan(v);
+
+
+
+
+
+
+

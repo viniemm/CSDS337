@@ -237,6 +237,10 @@ eval(struct ast *a)
   case '-': v = eval(a->l) - eval(a->r); break;
   case '*': v = eval(a->l) * eval(a->r); break;
   case '/': v = eval(a->l) / eval(a->r); break;
+
+  case '%': v = fmod(eval(a->l), eval(a->r)); break;
+  case '^': v = pow(eval(a->l), eval(a->r)); break;
+  
   case '|': v = fabs(eval(a->l)); break;
   case 'M': v = -eval(a->l); break;
 
@@ -296,7 +300,13 @@ callbuiltin(struct fncall *f)
  case B_exp:
    return exp(v);
  case B_log:
-   return log(v);
+   return log(v); 
+ case B_sin:
+   return sin(v);
+ case B_cos:
+   return cos(v); 
+ case B_tan:
+   return tan(v);
  case B_print:
    printf("= %4.4g\n", v);
    return v;
@@ -390,6 +400,10 @@ treefree(struct ast *a)
   case '-':
   case '*':
   case '/':
+
+  case '%':
+  case '^':
+  
   case '1':  case '2':  case '3':  case '4':  case '5':  case '6':
   case 'L':
     treefree(a->r);
@@ -464,7 +478,7 @@ dumpast(struct ast *a, int level)
     dumpast( ((struct symasgn *)a)->v, level); return;
 
     /* expressions */
-  case '+': case '-': case '*': case '/': case 'L':
+  case '+': case '-': case '*': case '/': case '%': case '^': case 'L':
   case '1': case '2': case '3':
   case '4': case '5': case '6': 
     printf("binop %c\n", a->nodetype);

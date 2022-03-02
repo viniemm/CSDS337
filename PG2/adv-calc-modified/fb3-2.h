@@ -32,7 +32,7 @@ struct symlist *newsymlist(struct symbol *sym, struct symlist *next);
 void symlistfree(struct symlist *sl);
 
 /* node types
- *  + - * / |
+ *  + - * / | ^ mod
  *  0-7 comparison ops, bit coded 04 equal, 02 less, 01 greater
  *  M unary minus
  *  L statement list
@@ -49,6 +49,9 @@ enum bifs {			/* built-in functions */
   B_sqrt = 1,
   B_exp,
   B_log,
+  B_sin,
+  B_cos,
+  B_tan,
   B_print
 };
 

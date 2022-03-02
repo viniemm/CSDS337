@@ -34,6 +34,7 @@
 %right '='
 %left '+' '-'
 %left '*' '/'
+%left "mod" '^' '%'
 %nonassoc '|' UMINUS
 
 %type <a> exp stmt list explist
@@ -62,6 +63,11 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | exp '-' exp          { $$ = newast('-', $1,$3);}
    | exp '*' exp          { $$ = newast('*', $1,$3); }
    | exp '/' exp          { $$ = newast('/', $1,$3); }
+   
+   | exp "mod" exp        { $$ = newast('%', $1,$3); }
+   | exp '^' exp          { $$ = newast('^', $1,$3); }
+
+   
    | '|' exp              { $$ = newast('|', $2, NULL); }
    | '(' exp ')'          { $$ = $2; }
    | '-' exp %prec UMINUS { $$ = newast('M', $2, NULL); }

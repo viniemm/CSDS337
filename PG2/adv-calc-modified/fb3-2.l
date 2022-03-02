@@ -28,6 +28,10 @@ EXP	([Ee][-+]?[0-9]+)
 "(" |
 ")"     { return yytext[0]; }
 
+"^" |   { return yytext[0]; }
+
+"mod"   { return '%';       }
+
  /* comparison ops */
 ">"     { yylval.fn = 1; return CMP; }
 "<"     { yylval.fn = 2; return CMP; }
@@ -49,6 +53,9 @@ EXP	([Ee][-+]?[0-9]+)
 "sqrt"  { yylval.fn = B_sqrt; return FUNC; }
 "exp"   { yylval.fn = B_exp; return FUNC; }
 "log"   { yylval.fn = B_log; return FUNC; }
+"sin"   { yylval.fn = B_sin; return FUNC; }
+"cos"   { yylval.fn = B_cos; return FUNC; }
+"tan"   { yylval.fn = B_tan; return FUNC; }
 "print" { yylval.fn = B_print; return FUNC; }
 
  /* debug hack */
